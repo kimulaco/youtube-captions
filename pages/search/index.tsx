@@ -9,7 +9,7 @@ export default () => {
   const [videos, setVideos] = useState([])
   const router = useRouter()
 
-  const searchVideos = async (params) => {
+  const searchVideos = async (params: any) => {
     const response = await fetch(`/api/search?${querystring.stringify(params)}`)
     const data = await response.json()
     return data

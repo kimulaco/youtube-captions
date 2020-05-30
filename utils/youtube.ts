@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Video, ResVideo } from '../../../interfaces/youtube'
+import { Video, ResVideo } from '../interfaces/youtube'
 
 export const api = axios.create({
   baseURL: 'https://www.googleapis.com/youtube/v3/'

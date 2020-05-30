@@ -1,6 +1,6 @@
 import * as React from 'react'
-import Link from 'next/link'
 import Head from 'next/head'
+import Link from 'next/link'
 
 type Props = {
   title?: string,
@@ -19,26 +19,34 @@ const Layout: React.FC<Props> = ({
       <meta name="viewport" content="initial-scale=1.0,width=device-width" />
     </Head>
 
-    <header>
-      <div>
-        {path === '/'
-          ? <h1>YouTube Caption Search</h1>
-          : <p>YouTube Caption Search</p>
-        }
-      </div>
-    </header>
+    <div className="min-h-screen flex flex-col">
+      <header className="bg-gray-100 shadow-sm">
+        <div className="max-w-screen-md mx-auto py-xs px-md">
+          {path === '/'
+            ? <h1 className="text-xl text-gray-800">YouTube Caption Search</h1>
+            : <p className="text-xl text-gray-800">
+              <Link href="/">
+                <a>YouTube Caption Search</a>
+              </Link>
+            </p>
+          }
+        </div>
+      </header>
 
-    <main>
-      <div>
-        {children}
-      </div>
-    </main>
+      <main className="my-xl">
+        <div className="max-w-screen-md mx-auto py-xs px-md">
+          {children}
+        </div>
+      </main>
 
-    <footer>
-      <div>
-        <p>&copy; 2020 YouTube Caption Search.</p>
-      </div>
-    </footer>
+      <footer className="mt-auto">
+        <div className="max-w-screen-md mx-auto p-md">
+          <p className="text-sm text-gray-600">
+            &copy; 2020 YouTube Caption Search.
+          </p>
+        </div>
+      </footer>
+    </div>
   </div>
 )
 

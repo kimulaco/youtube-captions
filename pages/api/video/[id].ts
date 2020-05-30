@@ -1,7 +1,6 @@
 import querystring from 'querystring'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { api, filterVideo } from '../../../utils/youtube'
-import { Video, ResVideo } from '../../../interfaces/youtube'
 
 const { YOUTUBE_API_KEY } = process.env
 
@@ -10,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const { data } = await api.get(`/videos?${querystring.stringify({
       part: 'snippet',
       maxResults: 1,
-      id: [req.query.id],
+      id: Array.isArray(req.query.id) ? req.query.id : [req.query.id],
       key: YOUTUBE_API_KEY
     })}`)
     res.status(200).json({

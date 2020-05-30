@@ -1,27 +1,20 @@
-import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
 import Layout from '../components/Layout'
-import { Video } from '../interfaces/youtube'
+import SearchForm from '../components/SearchForm'
 
 const IndexPage = () => {
   const router = useRouter()
-  const [keyword, setKeyword] = useState('')
 
   return (
     <Layout path="/">
-      <form onSubmit={(event: any) => {
-        event.preventDefault()
-        router.push(`/search?q=${keyword}`)
-      }}>
-        <input
-          type="text"
-          value={keyword}
-          onChange={(event: any) => {
-            setKeyword(event.target.value)
-          }}
-        />
-      </form>
+      <SearchForm
+        id="q"
+        value=""
+        placeholder="カンファレンス..."
+        onSubmit={(value: string) => {
+          router.push(`/search?q=${value}`)
+        }}
+      />
     </Layout>
   )
 }
