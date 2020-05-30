@@ -3,12 +3,14 @@ import Link from 'next/link'
 import Head from 'next/head'
 
 type Props = {
-  title?: string
+  title?: string,
+  path?: string
 }
 
 const Layout: React.FC<Props> = ({
   children,
   title = 'YouTube Caption Search',
+  path = '/'
 }) => (
   <div>
     <Head>
@@ -19,7 +21,10 @@ const Layout: React.FC<Props> = ({
 
     <header>
       <div>
-        <h1>YouTube Caption Search</h1>
+        {path === '/'
+          ? <h1>YouTube Caption Search</h1>
+          : <p>YouTube Caption Search</p>
+        }
       </div>
     </header>
 

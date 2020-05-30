@@ -9,7 +9,7 @@ const IndexPage = () => {
   const [keyword, setKeyword] = useState('')
 
   return (
-    <Layout>
+    <Layout path="/">
       <form onSubmit={(event: any) => {
         event.preventDefault()
         router.push(`/search?q=${keyword}`)

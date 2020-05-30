@@ -22,7 +22,7 @@ export default () => {
   }, [router.query.id])
 
   return (
-    <Layout>
+    <Layout path="/video/">
       { video && <div>
         <h1>{video.title || ''}</h1>
         <iframe

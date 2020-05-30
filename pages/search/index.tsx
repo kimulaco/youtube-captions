@@ -32,7 +32,7 @@ export default () => {
   }, [router.query.q])
 
   return (
-    <Layout>
+    <Layout path="/search">
       {videos.map((video: Video) => {
         return (
           <section key={video.videoId}>
