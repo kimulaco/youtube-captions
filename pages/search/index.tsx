@@ -31,7 +31,6 @@ export default () => {
       try {
         const data = await searchVideos(router.query)
         setVideos(data.items)
-        console.log(data.items)
       } catch (error) {
         console.error(error)
       }
