@@ -3,6 +3,9 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Layout from '../../components/Layout'
+import ColumnList from '../../components/ColumnList'
+import Column from '../../components/Column'
+import VideoLink from '../../components/VideoLink'
 import { Video } from '../../interfaces/youtube'
 
 export default () => {
@@ -24,6 +27,7 @@ export default () => {
       try {
         const data = await searchVideos(router.query)
         setVideos(data.items)
+        console.log(data.items)
       } catch (error) {
         console.error(error)
       }
@@ -33,23 +37,22 @@ export default () => {
 
   return (
     <Layout path="/search">
-      {videos.map((video: Video) => {
-        return (
-          <section key={video.videoId}>
-            <Link href="/video/[id]" as={`/video/${video.videoId}`}>
-              <a>
-                <div>
-                  <h2>{video.title}</h2>
-                  <p>{video.description}</p>
-                </div>
-                <div>
-                  <img src={video.thumbnails.medium.url} alt="" />
-                </div>
-              </a>
-            </Link>
-          </section>
-        )
-      })}
+      <ColumnList>
+        {videos.map((video: Video) => {
+          return (
+            <Column key={video.videoId}>
+              <VideoLink
+                videoId={video.videoId}
+                title={video.title}
+                description={video.description}
+                thumbnail={video.thumbnails.medium.url}
+                href="/video/[id]"
+                as={`/video/${video.videoId}`}
+              />
+            </Column>
+          )
+        })}
+      </ColumnList>
     </Layout>
   )
 }

@@ -9,7 +9,7 @@ type Props = {
 
 const Layout: React.FC<Props> = ({
   children,
-  title = 'YouTube Caption Search',
+  title = 'YouTube Captions',
   path = '/'
 }) => (
   <div>
@@ -21,12 +21,12 @@ const Layout: React.FC<Props> = ({
 
     <div className="min-h-screen flex flex-col">
       <header className="bg-gray-100 shadow-sm">
-        <div className="max-w-screen-md mx-auto py-xs px-md">
+        <div className="max-w-screen-lg mx-auto py-xs px-md">
           {path === '/'
-            ? <h1 className="text-xl text-gray-800">YouTube Caption Search</h1>
+            ? <h1 className="text-xl text-gray-800">YouTube Captions</h1>
             : <p className="text-xl text-gray-800">
               <Link href="/">
-                <a>YouTube Caption Search</a>
+                <a>YouTube Captions</a>
               </Link>
             </p>
           }
@@ -34,15 +34,15 @@ const Layout: React.FC<Props> = ({
       </header>
 
       <main className="my-xl">
-        <div className="max-w-screen-md mx-auto py-xs px-md">
+        <div className="max-w-screen-lg mx-auto py-xs px-md">
           {children}
         </div>
       </main>
 
       <footer className="mt-auto">
-        <div className="max-w-screen-md mx-auto p-md">
+        <div className="max-w-screen-lg mx-auto p-md">
           <p className="text-sm text-gray-600">
-            &copy; 2020 YouTube Caption Search.
+            &copy; 2020 YouTube Captions.
           </p>
         </div>
       </footer>

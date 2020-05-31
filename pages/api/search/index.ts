@@ -9,7 +9,7 @@ const DEFAULT_PARAMS = {
   part: 'snippet',
   videoCaption: 'closedCaption',
   q: '',
-  maxResults: 10
+  maxResults: 16
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
