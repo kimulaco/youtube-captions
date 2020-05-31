@@ -1,6 +1,6 @@
 import querystring from 'querystring'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { api, filterVideo } from '../../../utils/youtube'
+import { api, filterVideo } from '../../../utils/youtube-v3'
 import { Video, ResVideo } from '../../../interfaces/youtube'
 
 const { YOUTUBE_API_KEY } = process.env
