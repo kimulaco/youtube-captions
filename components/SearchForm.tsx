@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import React from 'react'
-import SearchIcon from '../assets/img/icon-search.svg'
 
 type Props = {
   id: string,
@@ -43,7 +42,8 @@ const SearchForm: React.FC<Props> = ({
           className="h-12 px-xs"
           type="submit"
         >
-          <SearchIcon />
+          <img src="/img/icon/icon-search.svg" alt=""/>
+          {/* <SearchIcon /> */}
           <span className="hidden">検索</span>
         </button>
       </div>

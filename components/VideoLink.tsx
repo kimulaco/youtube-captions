@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import React from 'react'
 
 type Props = {
@@ -6,9 +5,7 @@ type Props = {
   title: string
   description: string
   thumbnail: string
-  href: string
-  as?: string | null
-  onClick: (videoId: string) => void | null
+  onClick?: (videoId: string) => void | null
 }
 
 const VideoLink: React.FC<Props> = ({
@@ -16,8 +13,6 @@ const VideoLink: React.FC<Props> = ({
   title = '',
   description = '',
   thumbnail = '',
-  href = '',
-  as = null,
   onClick = null,
 }) => {
   return (

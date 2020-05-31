@@ -1,10 +1,6 @@
-import querystring from 'querystring'
 import { NextApiRequest, NextApiResponse } from 'next'
+import { queryToString } from '../../../utils/'
 import { getCaption } from '../../../utils/youtube-timedtext'
-
-const queryToString = (queryValue: any) => {
-  return Array.isArray(queryValue) ? queryValue[0] : queryValue
-}
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {

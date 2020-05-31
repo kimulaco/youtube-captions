@@ -1,13 +1,13 @@
 import querystring from 'querystring'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
 import Layout from '../../components/Layout'
 import SearchForm from '../../components/SearchForm'
 import ColumnList from '../../components/ColumnList'
 import Column from '../../components/Column'
 import VideoLink from '../../components/VideoLink'
 import { Video } from '../../interfaces/youtube'
+import { queryToString } from '../../utils/'
 
 export default () => {
   const [keyword, setKeyword] = useState<string>('')
@@ -25,7 +25,7 @@ export default () => {
       return
     }
 
-    setKeyword(router.query.q)
+    setKeyword(queryToString(router.query.q))
 
     const initialize = async () => {
       try {
@@ -60,8 +60,6 @@ export default () => {
                 title={video.title}
                 description={video.description}
                 thumbnail={video.thumbnails.medium.url}
-                href="/video/[id]"
-                as={`/video/${video.videoId}`}
               />
             </Column>
           )

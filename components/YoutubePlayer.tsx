@@ -5,7 +5,6 @@ type Props = {
 }
 
 const YoutubePlayer: React.FC<Props> = ({
-  children,
   videoId = '',
 }) => {
   return (

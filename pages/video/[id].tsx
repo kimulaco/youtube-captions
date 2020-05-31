@@ -4,10 +4,13 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Layout from '../../components/Layout'
 import YoutubePlayer from '../../components/YoutubePlayer'
-import { getLang } from '../../utils/youtube-timedtext'
 import { Video } from '../../interfaces/youtube'
 
-const findLang = (langs, key, value) => {
+const findLang = (
+  langs: any[],
+  key: string,
+  value: string | boolean | number
+) => {
   for (const lang of langs) {
     if (lang[key] === value) {
       return lang
