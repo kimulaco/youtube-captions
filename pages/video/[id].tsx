@@ -7,9 +7,9 @@ import YoutubePlayer from '../../components/YoutubePlayer'
 import { getLang } from '../../utils/youtube-timedtext'
 import { Video } from '../../interfaces/youtube'
 
-const getDefaultCaption = (langs) => {
+const findLang = (langs, key, value) => {
   for (const lang of langs) {
-    if (lang.default) {
+    if (lang[key] === value) {
       return lang
     }
   }
@@ -49,7 +49,7 @@ export default () => {
       setLangs(data.caption.lang)
 
       if (!selectedLang) {
-        const defaultLang = getDefaultCaption(data.caption.lang)
+        const defaultLang = findLang(data.caption.lang, 'default', true)
         updateCaption(defaultLang)
         setSelectedLang(defaultLang)
       } else {
@@ -63,11 +63,14 @@ export default () => {
   return (
     <Layout path="/video/">
       { video && <div>
-        <h1 className="text-2xl mb-md">{video?.title || ''}</h1>
+        <h1 className="text-3xl mb-md">{video?.title || ''}</h1>
         <div className="flex">
           <div className="w-1/2 pr-md">
             <YoutubePlayer videoId={videoId} />
-            <p className="mt-sm">{video?.description || ''}</p>
+            <p
+              className="mt-sm"
+              style={{ whiteSpace: 'pre-wrap' }}
+            >{video?.description || ''}</p>
           </div>
           <div className="w-1/2">
             {langs.map((lang: any) => {
@@ -78,6 +81,12 @@ export default () => {
                       type="radio"
                       name="caption-language"
                       value={lang.code}
+                      checked={selectedLang && lang.code === selectedLang.code}
+                      onChange={(event: any) => {
+                        const lang = findLang(langs, 'code', event.target.value)
+                        setSelectedLang(lang)
+                        updateCaption(lang)
+                      }}
                     />
                     <span className="pl-xs">{lang.label}</span>
                   </label>
@@ -85,8 +94,8 @@ export default () => {
               )
             })}
             <div className="mt-md">
-              <h2 className="mt-xs">キャプション</h2>
-              <div>{caption}</div>
+              <h2 className="mt-xs font-bold">キャプション</h2>
+              <div style={{ whiteSpace: 'pre-wrap' }}>{caption}</div>
             </div>
           </div>
         </div>

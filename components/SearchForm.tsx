@@ -27,7 +27,7 @@ const SearchForm: React.FC<Props> = ({
     >
       <div className="w-full">
         <input
-          className="block h-10 w-full p-sm border rounded"
+          className="block h-12 w-full p-sm border rounded"
           id={id}
           name={id}
           type="text"
@@ -38,9 +38,9 @@ const SearchForm: React.FC<Props> = ({
           }}
         />
       </div>
-      <div className="h-10 absolute right-0 bottom-0">
+      <div className="h-12 absolute right-0 bottom-0">
         <button
-          className="h-10 px-xs"
+          className="h-12 px-xs"
           type="submit"
         >
           <SearchIcon />

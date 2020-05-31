@@ -3,13 +3,15 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Layout from '../../components/Layout'
+import SearchForm from '../../components/SearchForm'
 import ColumnList from '../../components/ColumnList'
 import Column from '../../components/Column'
 import VideoLink from '../../components/VideoLink'
 import { Video } from '../../interfaces/youtube'
 
 export default () => {
-  const [videos, setVideos] = useState([])
+  const [keyword, setKeyword] = useState<string>('')
+  const [videos, setVideos] = useState<Video[]>([])
   const router = useRouter()
 
   const searchVideos = async (params: any) => {
@@ -22,6 +24,8 @@ export default () => {
     if (!router.query.q) {
       return
     }
+
+    setKeyword(router.query.q)
 
     const initialize = async () => {
       try {
@@ -37,6 +41,16 @@ export default () => {
 
   return (
     <Layout path="/search">
+      <div className="mb-xl">
+        <SearchForm
+          id="q"
+          value={keyword}
+          placeholder="カンファレンス..."
+          onSubmit={(value: string) => {
+            router.push(`/search?q=${value}`)
+          }}
+        />
+      </div>
       <ColumnList>
         {videos.map((video: Video) => {
           return (
