@@ -41,3 +41,10 @@ export interface ResVideoThumbnails {
   width: number
   height: number
 }
+
+export interface Rang {
+  name: string
+  label: string
+  code: string
+  default: boolean
+}

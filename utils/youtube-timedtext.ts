@@ -1,11 +1,12 @@
 import querystring from 'querystring'
 import axios from 'axios'
 import xml2js from 'xml2js'
+import { Rang } from '../interfaces/youtube'
 
 const xmlParser = new xml2js.Parser()
 const TIMED_TEXT_API = 'https://video.google.com/timedtext'
 
-export const getCaptionLangs = async (videoId: string): Promise<any[]> => {
+export const getCaptionLangs = async (videoId: string): Promise<Rang[]> => {
   const { data } = await axios.get(`${TIMED_TEXT_API}?type=list&v=${videoId}`)
   const xml = await xmlParser.parseStringPromise(data)
 
