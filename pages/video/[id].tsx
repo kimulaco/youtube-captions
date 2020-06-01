@@ -87,14 +87,8 @@ export default () => {
           <div className="md:w-1/2 pr-md">
             <YoutubePlayer videoId={videoId} />
             <p
-              className="mt-sm text-sm text-gray-700"
-              style={{
-                whiteSpace: 'pre-wrap',
-                overflow: isFullDesc ? 'visible' : 'hidden',
-                display: isFullDesc ? 'block' : '-webkit-box',
-                '-webkit-line-clamp': isFullDesc ? null : '4',
-                '-webkit-box-orient': isFullDesc ? null : 'vertical',
-              }}
+              className={`mt-sm text-sm text-gray-700${isFullDesc ? '' : ' line-clamp'}`}
+              style={{ whiteSpace: 'pre-wrap' }}
             >{video?.description || ''}</p>
             <button
               type="button"
@@ -161,6 +155,14 @@ export default () => {
           </div>
         </div>
       </div>}
+      <style jsx>{`
+        .line-clamp {
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+        }
+      `}</style>
     </Layout>
   )
 }
