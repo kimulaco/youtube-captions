@@ -21,7 +21,9 @@ const Layout: React.FC<Props> = ({
 
     <div className="min-h-screen flex flex-col">
       <header className="bg-gray-100 shadow-sm">
-        <div className="max-w-screen-lg mx-auto py-xs px-md">
+        <div
+          className="max-w-screen-lg mx-auto py-xs px-md flex justify-between items-center"
+        >
           {path === '/'
             ? <h1 className="text-xl text-gray-800">YouTube Captions</h1>
             : <p className="text-xl text-gray-800">
@@ -30,6 +32,15 @@ const Layout: React.FC<Props> = ({
               </Link>
             </p>
           }
+          <p style={{
+            width: '24px'
+          }}>
+            <a
+              href="https://github.com/kimulaco/youtube-captions"
+              target="_blank"
+              rel="noopener noreferrer"
+            ><img src="/img/icon/icon-github.svg" alt="Github"/></a>
+          </p>
         </div>
       </header>
 
@@ -42,7 +53,7 @@ const Layout: React.FC<Props> = ({
       <footer className="mt-auto">
         <div className="max-w-screen-lg mx-auto p-md">
           <p className="text-sm text-gray-600">
-            &copy; 2020 YouTube Captions.
+            &copy; 2020 YouTube Captions, created by <a className="underline" href="https://twitter.com/kimulaco" target="_blank" rel="noopener noreferrer">@kimulaco</a>.
           </p>
         </div>
       </footer>
