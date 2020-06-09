@@ -42,7 +42,7 @@ export interface ResVideoThumbnails {
   height: number
 }
 
-export interface Rang {
+export interface Lang {
   name: string
   label: string
   code: string

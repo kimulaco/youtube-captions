@@ -9,13 +9,13 @@ import RadioButton from '../../components/RadioButton/'
 import CaptionField from '../../components/CaptionField/'
 import YoutubePlayer from '../../components/YoutubePlayer/'
 import { copyToClipbord } from '../../utils/copy'
-import { Video, Rang } from '../../interfaces/youtube'
+import { Video, Lang } from '../../interfaces/youtube'
 
 const findLang = (
   langs: any[],
   key: string,
   value: string | boolean | number
-): Rang | null => {
+): Lang | null => {
   for (const lang of langs) {
     if (lang[key] === value) {
       return lang
@@ -27,13 +27,13 @@ const findLang = (
 export default () => {
   const [videoId, setVideoId] = useState<string>('')
   const [video, setVideo] = useState<Video | null>(null)
-  const [langs, setLangs] = useState<Rang[]>([])
+  const [langs, setLangs] = useState<Lang[]>([])
   const [caption, setCaption] = useState<string>('')
-  const [selectedLang, setSelectedLang] = useState<Rang | null>(null)
+  const [selectedLang, setSelectedLang] = useState<Lang | null>(null)
   const [isFullDesc, setIsFullDesc] = useState<boolean>(false)
   const router = useRouter()
 
-  const updateCaption = async (lang: Rang | null): Promise<void> => {
+  const updateCaption = async (lang: Lang | null): Promise<void> => {
     if (!lang) {
       setCaption('');
       return;
@@ -70,7 +70,7 @@ export default () => {
     }
 
     if (!selectedLang) {
-      const defaultLang: Rang | null = findLang(langs, 'default', true)
+      const defaultLang: Lang | null = findLang(langs, 'default', true)
       if (defaultLang) {
         updateCaption(defaultLang)
         setSelectedLang(defaultLang)
@@ -114,7 +114,7 @@ export default () => {
                   value={lang.code}
                   checked={isChecked}
                   onChange={(value: string) => {
-                    const lang: Rang | null = findLang(
+                    const lang: Lang | null = findLang(
                       langs, 'code', value
                     )
                     setSelectedLang(lang)
