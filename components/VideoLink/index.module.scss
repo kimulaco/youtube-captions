@@ -7,13 +7,14 @@
 
   padding-bottom: 40px;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-  0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
   transition: 0.3s;
-}
-.link:active,
-.link:focus,
-.link:hover {
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  &:active,
+  &:focus,
+  &:hover {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
 }
 
 .content {
@@ -34,17 +35,18 @@
 
 .thumbnail {
   @apply overflow-hidden;
-}
 
-.thumbnail img {
-  @apply w-full;
+  img {
+    @apply w-full;
 
-  transition: 0.3s;
-}
-.inner:active .thumbnail img,
-.inner:focus .thumbnail img,
-.inner:hover .thumbnail img {
-  transform: scale(1.1);
+    transition: 0.3s;
+
+    .inner:active &,
+    .inner:focus &,
+    .inner:hover & {
+      transform: scale(1.1);
+    }
+  }
 }
 
 .action {
@@ -61,11 +63,12 @@
   width: 30px;
   height: 30px;
   transition: 0.3s;
-}
-.btn:active,
-.btn:focus,
-.btn:hover {
-  transform: scale(1.1);
+
+  &:active,
+  &:focus,
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .btn img {

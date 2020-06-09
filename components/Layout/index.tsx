@@ -3,7 +3,7 @@ import Head from 'next/head'
 import AppHeader from '../AppHeader/'
 import AppMain from '../AppMain/'
 import AppFooter from '../AppFooter/'
-import styles from './index.module.css'
+import styles from './index.module.scss'
 
 type Props = {
   title?: string,

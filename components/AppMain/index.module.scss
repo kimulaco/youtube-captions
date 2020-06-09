@@ -1,15 +1,19 @@
+%inner-std-styles {
+  @apply mx-auto py-xs px-md;
+}
+
 .root {
   @apply my-xl;
 }
 
 .inner {
-  @apply mx-auto py-xs px-md;
+  @extend %inner-std-styles;
 
   max-width: var(--content-max-width);
 }
 
 .inner-small {
-  @apply mx-auto py-xs px-md;
+  @extend %inner-std-styles;
 
   max-width: var(--content-max-width-sm);
 }
