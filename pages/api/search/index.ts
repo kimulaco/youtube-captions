@@ -20,6 +20,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     })
     const { data } = await api.get(`/search?${querystring.stringify(params)}`)
     res.status(200).json({
+      pageInfo: {
+        totalResults: data.pageInfo?.totalResults,
+        resultsPerPage: data.pageInfo?.resultsPerPage,
+      },
+      nextPageToken: data.nextPageToken,
       items: data.items.map((item: ResVideo): Video => {
         return filterVideo(item)
       })

@@ -1,11 +1,13 @@
 import querystring from 'querystring'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import InfiniteScroll from 'react-infinite-scroller';
 import Layout from '../../components/Layout/'
 import SearchForm from '../../components/SearchForm/'
 import ColumnList from '../../components/ColumnList/'
 import Column from '../../components/Column/'
 import VideoLink from '../../components/VideoLink/'
+import Spinner from '../../components/Spinner/'
 import { Video } from '../../interfaces/youtube'
 import { queryToString } from '../../utils/'
 import { delayFetch } from '../../utils/fetcher'
@@ -13,32 +15,39 @@ import { delayFetch } from '../../utils/fetcher'
 export default () => {
   const [keyword, setKeyword] = useState<string>('')
   const [videos, setVideos] = useState<Video[]>(Array(12).fill({}))
+  const [nextPageToken, setNextPageToken] = useState<string>('')
   const router = useRouter()
 
-  const searchVideos = async (params: any) => {
-    const data = await delayFetch(
-      `/api/search?${querystring.stringify(params)}`
-    )
-    return data
-  }
-
-  useEffect(() => {
-    if (!router.query.q) {
+  const updateVideos = async (params: any) => {
+    if (!params.q) {
       return
     }
 
-    setKeyword(queryToString(router.query.q))
+    setKeyword(queryToString(params.q))
 
-    const initialize = async () => {
-      try {
-        const data = await searchVideos(router.query)
+    try {
+      const data = await delayFetch(
+        `/api/search?${querystring.stringify({
+          ...params,
+          pageToken: nextPageToken || null,
+        })}`
+      )
+
+      if (videos[0].videoId) {
+        setVideos(videos.concat(data.items))
+      } else {
         setVideos(data.items)
-        console.log(data.items)
-      } catch (error) {
-        console.error(error)
       }
+
+      setNextPageToken(data.nextPageToken || '')
+    } catch (error) {
+      console.error(error)
+      setNextPageToken('')
     }
-    initialize()
+  }
+
+  useEffect(() => {
+    updateVideos(router.query)
   }, [router.query.q])
 
   return (
@@ -53,20 +62,27 @@ export default () => {
           }}
         />
       </div>
-      <ColumnList>
-        {videos.map((video: Video, index: number) => {
-          return (
-            <Column key={`video-${index}`}>
-              <VideoLink
-                videoId={video.videoId}
-                title={video.title}
-                description={video.description}
-                thumbnail={video.thumbnails?.medium?.url}
-              />
-            </Column>
-          )
-        })}
-      </ColumnList>
+      <InfiniteScroll
+        pageStart={Math.ceil(videos.length / 12)}
+        loadMore={() => { updateVideos(router.query) }}
+        hasMore={Boolean(nextPageToken)}
+        loader={<Spinner key={0}>Loading...</Spinner>}
+      >
+        <ColumnList>
+          {videos.map((video: Video, index: number) => {
+            return (
+              <Column key={`video-${index}`}>
+                <VideoLink
+                  videoId={video.videoId}
+                  title={video.title}
+                  description={video.description}
+                  thumbnail={video.thumbnails?.medium?.url}
+                />
+              </Column>
+            )
+          })}
+        </ColumnList>
+      </InfiniteScroll>
     </Layout>
   )
 }
