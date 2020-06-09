@@ -1,19 +1,20 @@
 import React from 'react'
+import Skeleton from 'react-loading-skeleton'
 import styles from './index.module.css'
 
 type Props = {
-  videoId: string
-  title: string
-  description: string
-  thumbnail: string
+  videoId: string | undefined
+  title: string | undefined
+  description: string | undefined
+  thumbnail: string | undefined
   onClick?: (videoId: string) => void | null
 }
 
 const VideoLink: React.FC<Props> = ({
-  videoId = '',
-  title = '',
-  description = '',
-  thumbnail = '',
+  videoId = undefined,
+  title = undefined,
+  description = undefined,
+  thumbnail = undefined,
   onClick = null,
 }) => {
   return (
@@ -30,26 +31,42 @@ const VideoLink: React.FC<Props> = ({
       >
         <div className={styles.content}>
           <h2 className={styles.title}>
-            {title}
+            {typeof title === 'undefined' ?
+              <Skeleton /> :
+              title
+            }
           </h2>
           <p className={styles.desc}>
-            {description}
+            {typeof description === 'undefined' ?
+              <>
+                <Skeleton />
+                <Skeleton />
+                <Skeleton />
+              </> :
+              description
+            }
           </p>
         </div>
         <div className={styles.thumbnail}>
-          <img src={thumbnail} alt="" />
+            {typeof thumbnail === 'undefined' ?
+              <Skeleton height={127} /> :
+              <img src={thumbnail} alt="" />
+            }
         </div>
       </a>
       <ul className={styles.action}>
         <li>
-          <a
-            className={styles.btn}
-            href={`https://www.youtube.com/watch?v=${videoId}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src="/img/icon/icon-youtube.png" alt="Open YouTube" />
-          </a>
+          { typeof videoId === 'undefined' ?
+            <Skeleton width={24} height={24} /> :
+            <a
+              className={styles.btn}
+              href={`https://www.youtube.com/watch?v=${videoId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src="/img/icon/icon-youtube.png" alt="Open YouTube" />
+            </a>
+          }
         </li>
       </ul>
     </section>

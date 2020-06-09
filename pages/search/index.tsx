@@ -8,15 +8,17 @@ import Column from '../../components/Column/'
 import VideoLink from '../../components/VideoLink/'
 import { Video } from '../../interfaces/youtube'
 import { queryToString } from '../../utils/'
+import { delayFetch } from '../../utils/fetcher'
 
 export default () => {
   const [keyword, setKeyword] = useState<string>('')
-  const [videos, setVideos] = useState<Video[]>([])
+  const [videos, setVideos] = useState<Video[]>(Array(12).fill({}))
   const router = useRouter()
 
   const searchVideos = async (params: any) => {
-    const response = await fetch(`/api/search?${querystring.stringify(params)}`)
-    const data = await response.json()
+    const data = await delayFetch(
+      `/api/search?${querystring.stringify(params)}`
+    )
     return data
   }
 
@@ -31,6 +33,7 @@ export default () => {
       try {
         const data = await searchVideos(router.query)
         setVideos(data.items)
+        console.log(data.items)
       } catch (error) {
         console.error(error)
       }
@@ -51,14 +54,14 @@ export default () => {
         />
       </div>
       <ColumnList>
-        {videos.map((video: Video) => {
+        {videos.map((video: Video, index: number) => {
           return (
-            <Column key={video.videoId}>
+            <Column key={`video-${index}`}>
               <VideoLink
                 videoId={video.videoId}
                 title={video.title}
                 description={video.description}
-                thumbnail={video.thumbnails.medium.url}
+                thumbnail={video.thumbnails?.medium?.url}
               />
             </Column>
           )
