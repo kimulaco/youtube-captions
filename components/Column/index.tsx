@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './index.module.css'
 
 type Props = {
   size?: number
@@ -11,15 +12,11 @@ const Column: React.FC<Props> = ({
   margin = '24px',
 }) => {
   return (
-    <div className="Column">
+    <div className={styles.root} style={{
+      width: `calc((100% / ${size}) - ${margin})`,
+      margin: `${margin} 0 0 ${margin}`,
+    }}>
       {children}
-      <style jsx>{`
-        .Column {
-          display: flex;
-          width: calc((100% / ${size}) - ${margin});
-          margin: ${margin} 0 0 ${margin};
-        }
-      `}</style>
     </div>
   )
 }

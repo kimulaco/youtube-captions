@@ -1,0 +1,14 @@
+.root {
+  @apply w-full relative;
+
+  padding-bottom: 56.25%;
+  height: 0;
+}
+
+.iframe {
+  @apply w-full absolute;
+
+  top: 0;
+  left: 0;
+  height: 100%;
+}

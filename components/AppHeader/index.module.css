@@ -1,0 +1,15 @@
+.root {
+  @apply bg-gray-100 shadow-sm;
+}
+
+.inner {
+  @apply max-w-screen-lg mx-auto py-xs px-md flex justify-between items-center;
+}
+
+.title {
+  @apply text-xl text-gray-800;
+}
+
+.icon {
+  width: 24px;
+}

@@ -1,0 +1,15 @@
+.root {
+  @apply mt-auto;
+}
+
+.inner {
+  @apply max-w-screen-lg mx-auto p-md;
+}
+
+.copyright {
+  @apply text-sm text-gray-600;
+}
+
+.link {
+  @apply underline;
+}

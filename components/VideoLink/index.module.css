@@ -1,0 +1,74 @@
+.root {
+  @apply w-full flex relative;
+}
+
+.link {
+  @apply w-full flex flex-col-reverse justify-end rounded-lg overflow-hidden;
+
+  padding-bottom: 40px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+  0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transition: 0.3s;
+}
+.link:active,
+.link:focus,
+.link:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.content {
+  @apply p-sm pb-0;
+}
+
+.title {
+  @apply text-lg font-bold leading-tight mb-xs;
+}
+
+.desc {
+  @apply leading-tight overflow-hidden;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.thumbnail {
+  @apply overflow-hidden;
+}
+
+.thumbnail img {
+  @apply w-full;
+
+  transition: 0.3s;
+}
+.inner:active .thumbnail img,
+.inner:focus .thumbnail img,
+.inner:hover .thumbnail img {
+  transform: scale(1.1);
+}
+
+.action {
+  @apply w-full flex justify-end items-center px-sm absolute;
+
+  height: 40px;
+  left: 0;
+  bottom: 0;
+}
+
+.btn {
+  @apply flex justify-center items-center;
+
+  width: 30px;
+  height: 30px;
+  transition: 0.3s;
+}
+.btn:active,
+.btn:focus,
+.btn:hover {
+  transform: scale(1.1);
+}
+
+.btn img {
+  max-width: 100%;
+  max-height: 100%;
+}

@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
+import styles from './index.module.css'
 
 type Props = {
   id: string,
@@ -18,15 +18,15 @@ const SearchForm: React.FC<Props> = ({
 
   return (
     <form
-      className="flex items-end relative"
+      className={styles.root}
       onSubmit={(event: any) => {
         event.preventDefault()
         onSubmit(localValue)
       }}
     >
-      <div className="w-full">
+      <div className={styles.left}>
         <input
-          className="block h-12 w-full p-sm border rounded"
+          className={styles.input}
           id={id}
           name={id}
           type="text"
@@ -37,14 +37,14 @@ const SearchForm: React.FC<Props> = ({
           }}
         />
       </div>
-      <div className="h-12 absolute right-0 bottom-0">
+      <div className={styles.right}>
         <button
-          className="h-12 px-xs"
+          className={styles.btn}
           type="submit"
         >
           <img src="/img/icon/icon-search.svg" alt=""/>
           {/* <SearchIcon /> */}
-          <span className="hidden">検索</span>
+          <span className={styles.submit}>検索</span>
         </button>
       </div>
     </form>

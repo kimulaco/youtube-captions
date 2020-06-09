@@ -1,0 +1,7 @@
+.root {
+  @apply my-xl;
+}
+
+.inner {
+  @apply max-w-screen-lg mx-auto py-xs px-md;
+}

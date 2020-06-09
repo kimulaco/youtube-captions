@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
-import Layout from '../components/Layout'
-import SearchForm from '../components/SearchForm'
+import Layout from '../components/Layout/'
+import SearchForm from '../components/SearchForm/'
 
 const IndexPage = () => {
   const router = useRouter()

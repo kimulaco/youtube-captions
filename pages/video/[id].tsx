@@ -2,8 +2,8 @@ import querystring from 'querystring'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import Layout from '../../components/Layout'
-import YoutubePlayer from '../../components/YoutubePlayer'
+import Layout from '../../components/Layout/'
+import YoutubePlayer from '../../components/YoutubePlayer/'
 import { copyToClipbord } from '../../utils/copy'
 import { Video, Rang } from '../../interfaces/youtube'
 
@@ -83,8 +83,8 @@ export default () => {
     <Layout path="/video/">
       { video && <div>
         <h1 className="text-3xl mb-md">{video?.title || ''}</h1>
-        <div className="md:flex">
-          <div className="md:w-1/2 pr-md">
+        <div className="">
+          <div>
             <YoutubePlayer videoId={videoId} />
             <p
               className={`mt-sm text-sm text-gray-700${isFullDesc ? '' : ' line-clamp'}`}
@@ -97,9 +97,9 @@ export default () => {
               onClick={() => { setIsFullDesc(true) }}
             >もっと見る</button>
           </div>
-          <div className="mt-md md:w-1/2 md:mt-0">
-            <div className="md:flex md:flex-wrap">
-              <div className="md:w-1/2">
+          <div className="mt-md">
+            <div className="">
+              <div className="">
                 <h2 className="font-bold">言語</h2>
                 {langs.map((lang: any) => {
                   let isChecked = false
@@ -126,7 +126,7 @@ export default () => {
                   )
                 })}
               </div>
-              <div className="mt-md md:w-1/2 md:mt-md">
+              <div className="mt-md  md:mt-md">
                 <div>
                   <button
                     type="button"

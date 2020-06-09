@@ -1,0 +1,23 @@
+.root {
+  @apply items-end relative;
+}
+
+.left {
+  @apply w-full;
+}
+
+.right {
+  @apply h-12 absolute right-0 bottom-0;
+}
+
+.input {
+  @apply block h-12 w-full p-sm border rounded;
+}
+
+.btn {
+  @apply h-12 px-xs;
+}
+
+.submit {
+  @apply hidden;
+}
