@@ -1,7 +1,7 @@
 import querystring from 'querystring'
-import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import Skeleton from 'react-loading-skeleton'
 import Layout from '../../components/Layout/'
 import Heading from '../../components/Heading/'
 import StdButton from '../../components/StdButton/'
@@ -9,6 +9,7 @@ import RadioButton from '../../components/RadioButton/'
 import CaptionField from '../../components/CaptionField/'
 import YoutubePlayer from '../../components/YoutubePlayer/'
 import { copyToClipbord } from '../../utils/copy'
+import { delayFetch } from '../../utils/fetcher'
 import { Video, Lang } from '../../interfaces/youtube'
 
 const findLang = (
@@ -38,7 +39,7 @@ export default () => {
       setCaption('');
       return;
     }
-    const { data } = await axios.get(
+    const data = await delayFetch(
       `/api/caption/${router.query.id}?${querystring.stringify({
         langCode: lang.code || null,
         langName: lang.name || null,
@@ -56,7 +57,7 @@ export default () => {
       ? router.query.id[0]
       : router.query.id
     const initialize = async (): Promise<void> => {
-      const { data } = await axios.get(`/api/video/${router.query.id}`)
+      const data = await delayFetch(`/api/video/${router.query.id}`)
       setVideo(data.video)
       setLangs(data.caption.lang)
     }
@@ -85,23 +86,50 @@ export default () => {
 
   return (
     <Layout path="/video/" type="small">
-      { video && <div>
-        <h1 className="text-3xl mb-md">{video?.title || ''}</h1>
+      <div>
+        <h1 className="text-3xl mb-md">
+          { typeof video?.title === 'undefined' ?
+            <Skeleton /> :
+            video.title || ''
+          }
+        </h1>
 
-        <YoutubePlayer videoId={videoId} />
+        <YoutubePlayer
+          videoId={videoId}
+          show={Boolean(video)}
+        />
+
         <p
           className={`mt-sm text-sm text-gray-700${isFullDesc ? '' : ' line-clamp'}`}
           style={{ whiteSpace: 'pre-wrap' }}
-        >{video?.description || ''}</p>
-        <button
-          type="button"
-          className="mt-sm text-sm text-gray-700 underline"
-          style={{display: isFullDesc ? 'none' : 'block'}}
-          onClick={() => { setIsFullDesc(true) }}
-        >もっと見る</button>
+        >
+          { typeof video?.description === 'undefined' ?
+            <>
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+            </> :
+            video.description || ''
+          }
+        </p>
+        { typeof video?.description === 'undefined' ?
+            <Skeleton width={70} /> :
+            <button
+              type="button"
+              className="mt-sm text-sm text-gray-700 underline"
+              style={{display: isFullDesc ? 'none' : 'block'}}
+              onClick={() => { setIsFullDesc(true) }}
+            >もっと見る</button>
+        }
 
         <section>
-          <Heading>言語</Heading>
+          <Heading>
+            { langs.length <= 0 ?
+              <Skeleton width={40} /> :
+              '言語'
+            }
+          </Heading>
           {langs.map((lang: any) => {
             let isChecked = false
             if (selectedLang && lang.code === selectedLang.code) {
@@ -127,18 +155,29 @@ export default () => {
         </section>
 
         <section className="w-full mt-lg">
-          <Heading>キャプション</Heading>
-          <CaptionField value={caption}></CaptionField>
+          <Heading>
+            { langs.length <= 0 ?
+              <Skeleton width={40} /> :
+              'キャプション'
+            }
+          </Heading>
+          { langs.length <= 0 ?
+            <Skeleton height={280} /> :
+            <CaptionField value={caption}></CaptionField>
+          }
           <div className="mt-md  md:mt-md">
-            <StdButton
-              onClick={() => {
-                copyToClipbord(caption)
-                alert('クリップボードにコピーしました。')
-              }}
-            >Copy to clipboard</StdButton>
+            { langs.length <= 0 ?
+              <Skeleton width={160} /> :
+              <StdButton
+                onClick={() => {
+                  copyToClipbord(caption)
+                  alert('クリップボードにコピーしました。')
+                }}
+              >Copy to clipboard</StdButton>
+            }
           </div>
         </section>
-      </div> }
+      </div>
     </Layout>
   )
 }
