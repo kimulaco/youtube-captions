@@ -3,5 +3,13 @@
 }
 
 .inner {
-  @apply max-w-screen-lg mx-auto py-xs px-md;
+  @apply mx-auto py-xs px-md;
+
+  max-width: var(--content-max-width);
+}
+
+.inner-small {
+  @apply mx-auto py-xs px-md;
+
+  max-width: var(--content-max-width-sm);
 }

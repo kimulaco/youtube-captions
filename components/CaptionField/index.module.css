@@ -1,0 +1,6 @@
+.root {
+  @apply block rounded w-full bg-gray-200 p-sm;
+
+  height: 280px;
+  min-height: 280px;
+}

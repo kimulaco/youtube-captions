@@ -3,6 +3,10 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Layout from '../../components/Layout/'
+import Heading from '../../components/Heading/'
+import StdButton from '../../components/StdButton/'
+import RadioButton from '../../components/RadioButton/'
+import CaptionField from '../../components/CaptionField/'
 import YoutubePlayer from '../../components/YoutubePlayer/'
 import { copyToClipbord } from '../../utils/copy'
 import { Video, Rang } from '../../interfaces/youtube'
@@ -80,89 +84,61 @@ export default () => {
   }, [langs])
 
   return (
-    <Layout path="/video/">
+    <Layout path="/video/" type="small">
       { video && <div>
         <h1 className="text-3xl mb-md">{video?.title || ''}</h1>
-        <div className="">
-          <div>
-            <YoutubePlayer videoId={videoId} />
-            <p
-              className={`mt-sm text-sm text-gray-700${isFullDesc ? '' : ' line-clamp'}`}
-              style={{ whiteSpace: 'pre-wrap' }}
-            >{video?.description || ''}</p>
-            <button
-              type="button"
-              className="mt-sm text-sm text-gray-700 underline"
-              style={{display: isFullDesc ? 'none' : 'block'}}
-              onClick={() => { setIsFullDesc(true) }}
-            >もっと見る</button>
-          </div>
-          <div className="mt-md">
-            <div className="">
-              <div className="">
-                <h2 className="font-bold">言語</h2>
-                {langs.map((lang: any) => {
-                  let isChecked = false
-                  if (selectedLang && lang.code === selectedLang.code) {
-                    isChecked = true
-                  }
-                  return (
-                    <div key={lang.code}>
-                      <label>
-                        <input
-                          type="radio"
-                          name="caption-language"
-                          value={lang.code}
-                          checked={isChecked}
-                          onChange={(event: any) => {
-                            const lang: Rang | null = findLang(langs, 'code', event.target.value)
-                            setSelectedLang(lang)
-                            updateCaption(lang)
-                          }}
-                        />
-                        <span className="pl-xs">{lang.label}</span>
-                      </label>
-                    </div>
-                  )
-                })}
-              </div>
-              <div className="mt-md  md:mt-md">
-                <div>
-                  <button
-                    type="button"
-                    className="bg-blue-600 text-white py-xs px-sm rounded"
-                    style={{minWidth: '120px'}}
-                    onClick={() => {
-                      copyToClipbord(caption)
-                      alert('クリップボードにコピーしました。')
-                    }}
-                  >Copy to clipboard</button>
-                </div>
-              </div>
-              <div className="w-full mt-lg">
-                <h2 className="mb-xs font-bold">キャプション</h2>
-                <textarea
-                  className="block rounded w-full bg-gray-200 p-sm"
-                  value={caption}
-                  style={{
-                    height: '280px',
-                    minHeight: '280px',
+
+        <YoutubePlayer videoId={videoId} />
+        <p
+          className={`mt-sm text-sm text-gray-700${isFullDesc ? '' : ' line-clamp'}`}
+          style={{ whiteSpace: 'pre-wrap' }}
+        >{video?.description || ''}</p>
+        <button
+          type="button"
+          className="mt-sm text-sm text-gray-700 underline"
+          style={{display: isFullDesc ? 'none' : 'block'}}
+          onClick={() => { setIsFullDesc(true) }}
+        >もっと見る</button>
+
+        <section>
+          <Heading>言語</Heading>
+          {langs.map((lang: any) => {
+            let isChecked = false
+            if (selectedLang && lang.code === selectedLang.code) {
+              isChecked = true
+            }
+            return (
+              <div key={lang.code}>
+                <RadioButton
+                  id="caption-language"
+                  value={lang.code}
+                  checked={isChecked}
+                  onChange={(value: string) => {
+                    const lang: Rang | null = findLang(
+                      langs, 'code', value
+                    )
+                    setSelectedLang(lang)
+                    updateCaption(lang)
                   }}
-                  readOnly
-                />
+                >{lang.label}</RadioButton>
               </div>
-            </div>
+            )
+          })}
+        </section>
+
+        <section className="w-full mt-lg">
+          <Heading>キャプション</Heading>
+          <CaptionField value={caption}></CaptionField>
+          <div className="mt-md  md:mt-md">
+            <StdButton
+              onClick={() => {
+                copyToClipbord(caption)
+                alert('クリップボードにコピーしました。')
+              }}
+            >Copy to clipboard</StdButton>
           </div>
-        </div>
-      </div>}
-      <style jsx>{`
-        .line-clamp {
-          overflow: hidden;
-          display: -webkit-box;
-          -webkit-line-clamp: 4;
-          -webkit-box-orient: vertical;
-        }
-      `}</style>
+        </section>
+      </div> }
     </Layout>
   )
 }

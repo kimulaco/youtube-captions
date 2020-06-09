@@ -1,0 +1,20 @@
+@import "./_define";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+:root {
+  --content-max-width: #{$content-max-width};
+  --content-max-width-sm: #{$content-max-width-sm};
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.line-clamp {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}

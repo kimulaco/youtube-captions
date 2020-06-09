@@ -1,6 +1,4 @@
-import * as React from 'react'
-import Head from 'next/head'
-import Link from 'next/link'
+import React from 'react'
 import styles from './index.module.css'
 
 type Props = {
@@ -13,7 +11,7 @@ const AppMain: React.FC<Props> = ({
 }) => {
   return (
     <main className={styles.root}>
-      <div className={styles.inner}>
+      <div className={styles[type === 'small' ? 'inner-small' : 'inner']}>
         {children}
       </div>
     </main>

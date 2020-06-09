@@ -1,6 +1,5 @@
 import * as React from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
 import AppHeader from '../AppHeader/'
 import AppMain from '../AppMain/'
 import AppFooter from '../AppFooter/'
@@ -28,7 +27,7 @@ const Layout: React.FC<Props> = ({
     <div className={styles.root}>
       <AppHeader path={path} />
 
-      <AppMain>
+      <AppMain type={type}>
         {children}
       </AppMain>
 
