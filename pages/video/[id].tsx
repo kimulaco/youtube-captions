@@ -10,6 +10,7 @@ import CaptionField from '../../components/CaptionField/'
 import YoutubePlayer from '../../components/YoutubePlayer/'
 import { copyToClipbord } from '../../utils/copy'
 import { delayFetch } from '../../utils/fetcher'
+import { sendEvent } from '../../utils/ga'
 import { Video, Lang } from '../../interfaces/youtube'
 
 const findLang = (
@@ -46,6 +47,10 @@ export default () => {
       setLangs(data.caption.lang)
     } catch (error) {
       if (error.statusCode === 403) {
+        sendEvent({
+          action: 'forbidden',
+          category: 'error',
+        })
         router.push('/error?type=forbidden')
       }
     }

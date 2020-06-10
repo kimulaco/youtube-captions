@@ -11,6 +11,7 @@ import Spinner from '../../components/Spinner/'
 import { Video } from '../../interfaces/youtube'
 import { queryToString } from '../../utils/'
 import { delayFetch } from '../../utils/fetcher'
+import { sendEvent } from '../../utils/ga'
 
 export default () => {
   const [keyword, setKeyword] = useState<string>('')
@@ -48,6 +49,10 @@ export default () => {
       setNextPageToken('')
 
       if (error.statusCode === 403) {
+        sendEvent({
+          action: 'forbidden',
+          category: 'error',
+        })
         router.push('/error?type=forbidden')
       }
     }
