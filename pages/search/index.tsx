@@ -33,6 +33,10 @@ export default () => {
         })}`
       )
 
+      if (!data.items) {
+        throw data
+      }
+
       if (videos[0].videoId) {
         setVideos(videos.concat(data.items))
       } else {
@@ -41,8 +45,11 @@ export default () => {
 
       setNextPageToken(data.nextPageToken || '')
     } catch (error) {
-      console.error(error)
       setNextPageToken('')
+
+      if (error.statusCode === 403) {
+        alert('現在、サービスをご利用することができません。')
+      }
     }
   }
 
@@ -77,6 +84,9 @@ export default () => {
                   title={video.title}
                   description={video.description}
                   thumbnail={video.thumbnails?.medium?.url}
+                  onClick={(videoId: string) => {
+                    router.push(`/video/${videoId}`)
+                  }}
                 />
               </Column>
             )

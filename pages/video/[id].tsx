@@ -34,6 +34,23 @@ export default () => {
   const [isFullDesc, setIsFullDesc] = useState<boolean>(false)
   const router = useRouter()
 
+  const getVideo = async (): Promise<void> => {
+    try {
+      const data = await delayFetch(`/api/video/${router.query.id}`)
+
+      if (!data.items) {
+        throw data
+      }
+
+      setVideo(data.video)
+      setLangs(data.caption.lang)
+    } catch (error) {
+      if (error.statusCode === 403) {
+        alert('現在、サービスをご利用することができません。')
+      }
+    }
+  }
+
   const updateCaption = async (lang: Lang | null): Promise<void> => {
     if (!lang) {
       setCaption('');
@@ -56,13 +73,9 @@ export default () => {
     const videoId: string = Array.isArray(router.query.id)
       ? router.query.id[0]
       : router.query.id
-    const initialize = async (): Promise<void> => {
-      const data = await delayFetch(`/api/video/${router.query.id}`)
-      setVideo(data.video)
-      setLangs(data.caption.lang)
-    }
     setVideoId(videoId)
-    initialize()
+
+    getVideo()
   }, [router.query.id])
 
   useEffect(() => {
