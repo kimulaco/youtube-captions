@@ -9,7 +9,10 @@ export const fetcher = async (
   return data
 }
 
-export const delayFetch = async (url, params = {}) => {
+export const delayFetch = async (
+  url: string,
+  params: {[key: string]: any} = {}
+) => {
   const [data] = await Promise.all([
     fetcher(url, params),
     wait(1000),

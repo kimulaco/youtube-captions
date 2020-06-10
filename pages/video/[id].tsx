@@ -46,7 +46,7 @@ export default () => {
       setLangs(data.caption.lang)
     } catch (error) {
       if (error.statusCode === 403) {
-        alert('現在、サービスをご利用することができません。')
+        router.push('/error?type=forbidden')
       }
     }
   }

@@ -20,7 +20,7 @@ const VideoLink: React.FC<Props> = ({
   return (
     <section className={styles.root}>
       <a
-        href={videoId ? `/video/${videoId}` : null}
+        href={videoId ? `/video/${videoId}` : ''}
         className={styles.link}
         onClick={(event: any) => {
           if (onClick && videoId) {
